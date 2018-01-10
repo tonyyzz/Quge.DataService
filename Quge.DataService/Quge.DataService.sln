@@ -5,6 +5,14 @@ VisualStudioVersion = 15.0.27004.2006
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Quge.DataService.Web", "Quge.DataService.Web\Quge.DataService.Web.csproj", "{A98AC3C2-F298-47C6-9343-EF17BA0934A5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Quge.DataService.Common", "Quge.DataService.Common\Quge.DataService.Common.csproj", "{E8C10D0B-5C85-4E9A-B2CB-11CB5E68571A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Quge.DataService.Console", "Quge.DataService.Console\Quge.DataService.Console.csproj", "{EF0C0AAA-AC32-4816-BDEA-9F8845A9C27F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Quge.DataService.Aliyun", "Quge.DataService.Aliyun\Quge.DataService.Aliyun.csproj", "{45C1E195-0384-4F3F-AB02-1A78DB62E2BD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Quge.DataService.Model", "Quge.DataService.Model\Quge.DataService.Model.csproj", "{E61B83CB-F779-43B8-9BEF-B94A55E8ACE0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +23,22 @@ Global
 		{A98AC3C2-F298-47C6-9343-EF17BA0934A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A98AC3C2-F298-47C6-9343-EF17BA0934A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A98AC3C2-F298-47C6-9343-EF17BA0934A5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E8C10D0B-5C85-4E9A-B2CB-11CB5E68571A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E8C10D0B-5C85-4E9A-B2CB-11CB5E68571A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E8C10D0B-5C85-4E9A-B2CB-11CB5E68571A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E8C10D0B-5C85-4E9A-B2CB-11CB5E68571A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EF0C0AAA-AC32-4816-BDEA-9F8845A9C27F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EF0C0AAA-AC32-4816-BDEA-9F8845A9C27F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EF0C0AAA-AC32-4816-BDEA-9F8845A9C27F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EF0C0AAA-AC32-4816-BDEA-9F8845A9C27F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{45C1E195-0384-4F3F-AB02-1A78DB62E2BD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{45C1E195-0384-4F3F-AB02-1A78DB62E2BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{45C1E195-0384-4F3F-AB02-1A78DB62E2BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{45C1E195-0384-4F3F-AB02-1A78DB62E2BD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E61B83CB-F779-43B8-9BEF-B94A55E8ACE0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E61B83CB-F779-43B8-9BEF-B94A55E8ACE0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E61B83CB-F779-43B8-9BEF-B94A55E8ACE0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E61B83CB-F779-43B8-9BEF-B94A55E8ACE0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
