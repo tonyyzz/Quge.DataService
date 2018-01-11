@@ -15,7 +15,7 @@ namespace Quge.DataService.Console
 		static void Main(string[] args)
 		{
 			#region 写入日志
-			//string projName = "auction";
+			//string projName = "yTest";
 			//string pId = "100001";
 			//int typeInt = 1;
 			//int platformInt = 1;
