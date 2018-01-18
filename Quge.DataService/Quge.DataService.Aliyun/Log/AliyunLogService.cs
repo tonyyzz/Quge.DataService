@@ -31,6 +31,15 @@ namespace Quge.DataService.Aliyun.Log
 			PutLogsResponse res4 = client.PutLogs(new PutLogsRequest(AliyunConfig.project,
 				AliyunConfig.logstore, topic, source, logs));
 		}
+		/// <summary>
+		/// 分页获取该时间区间内的所有日志信息
+		/// </summary>
+		/// <param name="fromTime"></param>
+		/// <param name="toTime"></param>
+		/// <param name="where"></param>
+		/// <param name="lines">每次请求获取的数量，目前最大值仅有100</param>
+		/// <param name="offset">偏移量（以在该时间区间内的数据总量为参考的偏移量，可以通过分页，递归的方式获取所有数据）</param>
+		/// <returns></returns>
 		public static List<Dictionary<string, string>> ReadLog(DateTime fromTime, DateTime toTime
 			, string where = "", int lines = int.MaxValue, int offset = 0)
 		{
@@ -44,7 +53,7 @@ namespace Quge.DataService.Aliyun.Log
 					, AliyunConfig.logstore
 					, DateHelper.GetUtcUIntFromTime(fromTime)
 					, DateHelper.GetUtcUIntFromTime(toTime)
-					, String.Empty, where, lines, offset, false));
+					, String.Empty, where, lines, offset, true));
 			} while ((res3 != null) && (!res3.IsCompleted()));
 			foreach (QueriedLog log in res3.Logs)
 			{
