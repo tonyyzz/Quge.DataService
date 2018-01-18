@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Quge.DataService.Aliyun", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Quge.DataService.Model", "Quge.DataService.Model\Quge.DataService.Model.csproj", "{E61B83CB-F779-43B8-9BEF-B94A55E8ACE0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Quge.DataService.Winform", "Quge.DataService.Winform\Quge.DataService.Winform.csproj", "{C16A8A3A-A98B-4586-95CA-1FE246C00684}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{E61B83CB-F779-43B8-9BEF-B94A55E8ACE0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E61B83CB-F779-43B8-9BEF-B94A55E8ACE0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E61B83CB-F779-43B8-9BEF-B94A55E8ACE0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C16A8A3A-A98B-4586-95CA-1FE246C00684}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C16A8A3A-A98B-4586-95CA-1FE246C00684}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C16A8A3A-A98B-4586-95CA-1FE246C00684}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C16A8A3A-A98B-4586-95CA-1FE246C00684}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

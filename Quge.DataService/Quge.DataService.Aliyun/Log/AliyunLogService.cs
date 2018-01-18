@@ -31,10 +31,10 @@ namespace Quge.DataService.Aliyun.Log
 			PutLogsResponse res4 = client.PutLogs(new PutLogsRequest(AliyunConfig.project,
 				AliyunConfig.logstore, topic, source, logs));
 		}
-		public static List<LogData> ReadLog(DateTime fromTime, DateTime toTime
-			,int lines, string query = "", int offset = 0)
+		public static List<Dictionary<string, string>> ReadLog(DateTime fromTime, DateTime toTime
+			, string where = "", int lines = int.MaxValue, int offset = 0)
 		{
-			List<LogData> list = new List<LogData>();
+			List<Dictionary<string, string>> list = new List<Dictionary<string, string>>();
 			LogClient client = new LogClient(AliyunConfig.endpoint, AliyunConfig.accessKeyId, AliyunConfig.accessKeySecret);
 			//查询日志数据
 			GetLogsResponse res3 = null;
@@ -44,7 +44,7 @@ namespace Quge.DataService.Aliyun.Log
 					, AliyunConfig.logstore
 					, DateHelper.GetUtcUIntFromTime(fromTime)
 					, DateHelper.GetUtcUIntFromTime(toTime)
-					, String.Empty, query, lines, offset, true));
+					, String.Empty, where, lines, offset, false));
 			} while ((res3 != null) && (!res3.IsCompleted()));
 			foreach (QueriedLog log in res3.Logs)
 			{
@@ -55,23 +55,25 @@ namespace Quge.DataService.Aliyun.Log
 					//Console.WriteLine("{0} --> {1}", log.Contents[i].Key, log.Contents[i].Value);
 					dict.Add(log.Contents[i].Key, log.Contents[i].Value);
 				}
-				LogData logData = dict.SerializeObject().DeserializeObject<LogData>();
-				switch (logData.logType)
-				{
-					case DataLogTypeEnum.Login:
-						{
-							logData.dataLogin = dict.SerializeObject().DeserializeObject<DataLogin>();
-						}
-						break;
-					case DataLogTypeEnum.Pay:
-						{
-							logData.dataPay = dict.SerializeObject().DeserializeObject<DataPay>();
-						}
-						break;
-					default:
-						break;
-				}
-				list.Add(logData);
+				dict.Add("time", log.Time.ToString());
+				//LogData logData = dict.SerializeObject().DeserializeObject<LogData>();
+				//switch (logData.logType)
+				//{
+				//	case DataLogTypeEnum.Login:
+				//		{
+				//			logData.dataLogin = dict.SerializeObject().DeserializeObject<DataLogin>();
+				//		}
+				//		break;
+				//	case DataLogTypeEnum.Pay:
+				//		{
+				//			logData.dataPay = dict.SerializeObject().DeserializeObject<DataPay>();
+				//		}
+				//		break;
+				//	default:
+				//		break;
+				//}
+				//list.Add(logData);
+				list.Add(dict);
 			}
 			return list;
 		}

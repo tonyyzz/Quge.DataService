@@ -37,10 +37,10 @@
       <HintPath>..\Lib\protobuf\net40\Google.ProtocolBuffers.Serialization.dll</HintPath>
     </Reference>
     <Reference Include="Google.ProtocolBuffersLite">
-      <HintPath>..\Lib\protobuf\net40\Google.ProtocolBuffersLite.dll</HintPath>
+      <HintPath>..\..\..\yungou_Server\branches\Lib\protobuf\net40\Google.ProtocolBuffersLite.dll</HintPath>
     </Reference>
     <Reference Include="Google.ProtocolBuffersLite.Serialization">
-      <HintPath>..\Lib\protobuf\net40\Google.ProtocolBuffersLite.Serialization.dll</HintPath>
+      <HintPath>..\..\..\yungou_Server\branches\Lib\protobuf\net40\Google.ProtocolBuffersLite.Serialization.dll</HintPath>
     </Reference>
     <Reference Include="LOGSDK">
       <HintPath>..\Lib\LOGSDK.dll</HintPath>
