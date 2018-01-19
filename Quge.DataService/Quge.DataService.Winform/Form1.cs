@@ -19,10 +19,23 @@ namespace Quge.DataService.Winform
 	public partial class Form1 : Form
 	{
 
-		private static string projName = "test";
+		private static string projName = "test";//test  auction
 		public Form1()
 		{
 			InitializeComponent();
+			lblStateMore.Text = "";
+			lblStateLess.Text = "";
+		}
+
+		private void Form1_Load(object sender, EventArgs e)
+		{
+			cbBoxProjType.SelectedIndex = 0;
+			projName = (string)cbBoxProjType.SelectedItem;
+		}
+
+		private void cbBoxProjType_SelectedIndexChanged(object sender, EventArgs e)
+		{
+			projName = (string)cbBoxProjType.SelectedItem;
 		}
 
 
@@ -40,7 +53,7 @@ namespace Quge.DataService.Winform
 
 			string path = "";
 			saveFileDialogMore.InitialDirectory = @"D:\";
-			saveFileDialogMore.FileName = DateTime.Now.ToString($"所有用户的详细信息_{DateTime.Now.Ticks}");
+			saveFileDialogMore.FileName = $"{projName}_所有用户的详细信息_{DateTime.Now.Ticks}";
 			saveFileDialogMore.DefaultExt = "xls";
 			if (saveFileDialogMore.ShowDialog() == DialogResult.OK)
 			{
@@ -106,12 +119,12 @@ namespace Quge.DataService.Winform
 				//注册
 				foreach (var item in registerModelList)
 				{
-					var dataItem = dataList.FirstOrDefault(m => m.pid == item.pid);
+					var dataItem = dataList.FirstOrDefault(m => m.pid == item.pidInt);
 					if (dataItem == null)
 					{
 						dataList.Add(new DataRLModel()
 						{
-							pid = item.pid,
+							pid = item.pidInt,
 							channel = item.channel,
 							RegisterTime = item.Time
 						});
@@ -133,7 +146,7 @@ namespace Quge.DataService.Winform
 
 					//登录
 					//记录最后一次登录时间
-					var loginInfo = loginModelList.Where(m => m.pid == item.pid).OrderByDescending(m => m.Time).FirstOrDefault();
+					var loginInfo = loginModelList.Where(m => m.pidInt == item.pid).OrderByDescending(m => m.Time).FirstOrDefault();
 					if (loginInfo != null)
 					{
 						item.LastLoginTime = loginInfo.Time;
@@ -145,7 +158,7 @@ namespace Quge.DataService.Winform
 					//支付
 					//记录该用户的总充值额度，第一次充值时间，充值次数
 					//先获取该用户的所有支付信息
-					var payInfoLi = payModelList.Where(m => m.pid == item.pid);
+					var payInfoLi = payModelList.Where(m => m.pidInt == item.pid);
 					if (payInfoLi.Any())
 					{
 						var totalFeeYuan = payInfoLi.Sum(m => m.FeeYuan);
@@ -198,7 +211,7 @@ namespace Quge.DataService.Winform
 
 			string path = "";
 			saveFileDialogLess.InitialDirectory = @"D:\";
-			saveFileDialogLess.FileName = DateTime.Now.ToString($"所有用户的竞拍信息_{DateTime.Now.Ticks}");
+			saveFileDialogLess.FileName = $"{projName}_所有用户的竞拍信息_{DateTime.Now.Ticks}";
 			saveFileDialogLess.DefaultExt = "xls";
 			if (saveFileDialogLess.ShowDialog() == DialogResult.OK)
 			{
@@ -223,7 +236,12 @@ namespace Quge.DataService.Winform
 				List<Dictionary<string, string>> auctionDictList = new List<Dictionary<string, string>>();
 				GetLog(ref auctionDictList, timeLeft, timeRight, projName, DataLogTypeEnum.Auction, 1);
 
+				List<Dictionary<string, string>> auctionPrizeDictList = new List<Dictionary<string, string>>();
+				GetLog(ref auctionPrizeDictList, timeLeft, DateTime.Now, projName, DataLogTypeEnum.AuctionPrize, 1);
+
+
 				var auctionModelList = auctionDictList.JsonSerialize().JsonDeserialize<List<AuctionModel>>();
+				var auctionPrizeModelList = auctionPrizeDictList.JsonSerialize().JsonDeserialize<List<AuctionModel>>();
 
 				if (!auctionModelList.Any())
 				{
@@ -241,18 +259,35 @@ namespace Quge.DataService.Winform
 
 				var dataList = auctionModelList.GroupBy(m => new
 				{
-					m.pid,
+					m.pidInt,
 					m.auctionName,
 					m.TermIndexInt
 				}).Select(m => new DataAuctModel()
 				{
-					pid = m.Key.pid,
+					pid = m.Key.pidInt,
 					ActionName = m.Key.auctionName,
 					TermIndex = m.Key.TermIndexInt,
 					FirstActionTime = m.OrderBy(n => n.Time).FirstOrDefault().Time,
 					AuctionCountOfThisTerm = m.Count(),
-					IsFinalWinPrize = m.FirstOrDefault(n => n.IsWinPrize) != null ? true : false
+					IsFinalWinPrize = false, // m.FirstOrDefault(n => n.IsWinPrize) != null ? true : false
 				}).ToList();
+
+				for (int i = 0; i < dataList.Count(); i++)
+				{
+					var item = dataList[i];
+
+					var prizeInfo = auctionPrizeModelList.Where(m =>
+						m.pidInt == item.pid
+						&& m.auctionName == item.ActionName
+						&& m.TermIndexInt == item.TermIndex)
+					.OrderByDescending(m => m.Time)
+					.FirstOrDefault(m => m.IsWinPrize);
+
+					if (prizeInfo != null)
+					{
+						item.IsFinalWinPrize = true;
+					}
+				}
 
 				HSSFWorkbook hssfworkbook = new HSSFWorkbook();
 				HSSFSheet sheet = hssfworkbook.CreateSheet("AuctionData") as HSSFSheet;
@@ -292,7 +327,7 @@ namespace Quge.DataService.Winform
 		{
 			int singleMexCount = 100;
 			var result = AliyunLogService.ReadLog(timeLeft, timeRight,
-				$"projName == {projName} and logType == {(int)logTypeEnum}", offset: (pageIndex - 1) * singleMexCount);
+				$"projName:{projName} and logType:{(int)logTypeEnum}", offset: (pageIndex - 1) * singleMexCount);
 			if (result.Any())
 			{
 				list.AddRange(result);

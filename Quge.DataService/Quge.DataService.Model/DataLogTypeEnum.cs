@@ -17,5 +17,7 @@ namespace Quge.DataService.Model
 		Pay,
 		[Description("竞拍")]
 		Auction,
+		[Description("竞拍中奖记录")]
+		AuctionPrize,
 	}
 }

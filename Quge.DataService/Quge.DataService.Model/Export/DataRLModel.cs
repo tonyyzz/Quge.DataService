@@ -8,7 +8,7 @@ namespace Quge.DataService.Model.Export
 {
 	public class DataRLModel
 	{
-		public string pid { get; set; }
+		public int pid { get; set; }
 		public string channel { get; set; }
 		public DateTime RegisterTime { get; set; }
 		public double TotalFeeYuan { get; set; }

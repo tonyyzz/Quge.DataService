@@ -31,5 +31,12 @@ namespace Quge.DataService.Model.Export
 				return DateTimeHelper.GetTimeFromUtcUInt(Convert.ToUInt32(time));
 			}
 		}
+		public int pidInt
+		{
+			get
+			{
+				return Convert.ToInt32(pid);
+			}
+		}
 	}
 }

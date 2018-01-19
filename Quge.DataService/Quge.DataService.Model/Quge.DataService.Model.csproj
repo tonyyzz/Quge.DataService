@@ -52,7 +52,6 @@
     <Compile Include="Export\LoginModel.cs" />
     <Compile Include="Export\PayModel.cs" />
     <Compile Include="Export\RegisterModel.cs" />
-    <Compile Include="Export\TestModel.cs" />
     <Compile Include="LogData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

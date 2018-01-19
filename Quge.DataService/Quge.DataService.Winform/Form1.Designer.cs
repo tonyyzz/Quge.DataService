@@ -46,6 +46,8 @@
 			this.label4 = new System.Windows.Forms.Label();
 			this.saveFileDialogMore = new System.Windows.Forms.SaveFileDialog();
 			this.saveFileDialogLess = new System.Windows.Forms.SaveFileDialog();
+			this.cbBoxProjType = new System.Windows.Forms.ComboBox();
+			this.label3 = new System.Windows.Forms.Label();
 			this.groupBox1.SuspendLayout();
 			this.groupBox2.SuspendLayout();
 			this.SuspendLayout();
@@ -59,7 +61,7 @@
 			this.groupBox1.Controls.Add(this.dtpRegisterRight);
 			this.groupBox1.Controls.Add(this.dtpRegisterLeft);
 			this.groupBox1.Controls.Add(this.label1);
-			this.groupBox1.Location = new System.Drawing.Point(24, 35);
+			this.groupBox1.Location = new System.Drawing.Point(14, 50);
 			this.groupBox1.Name = "groupBox1";
 			this.groupBox1.Size = new System.Drawing.Size(424, 103);
 			this.groupBox1.TabIndex = 0;
@@ -69,6 +71,7 @@
 			// lblStateMore
 			// 
 			this.lblStateMore.AutoSize = true;
+			this.lblStateMore.ForeColor = System.Drawing.Color.Green;
 			this.lblStateMore.Location = new System.Drawing.Point(109, 88);
 			this.lblStateMore.Name = "lblStateMore";
 			this.lblStateMore.Size = new System.Drawing.Size(41, 12);
@@ -136,16 +139,17 @@
 			this.groupBox2.Controls.Add(this.dtpAuctionRight);
 			this.groupBox2.Controls.Add(this.dtpAuctionLeft);
 			this.groupBox2.Controls.Add(this.label4);
-			this.groupBox2.Location = new System.Drawing.Point(24, 169);
+			this.groupBox2.Location = new System.Drawing.Point(14, 175);
 			this.groupBox2.Name = "groupBox2";
 			this.groupBox2.Size = new System.Drawing.Size(424, 104);
 			this.groupBox2.TabIndex = 1;
 			this.groupBox2.TabStop = false;
-			this.groupBox2.Text = "数据集2（单用户的竞拍信息）";
+			this.groupBox2.Text = "数据集2（所有用户的竞拍信息）";
 			// 
 			// lblStateLess
 			// 
 			this.lblStateLess.AutoSize = true;
+			this.lblStateLess.ForeColor = System.Drawing.Color.Green;
 			this.lblStateLess.Location = new System.Drawing.Point(111, 88);
 			this.lblStateLess.Name = "lblStateLess";
 			this.lblStateLess.Size = new System.Drawing.Size(41, 12);
@@ -203,23 +207,49 @@
 			this.label4.TabIndex = 2;
 			this.label4.Text = "商品竞拍时间：";
 			// 
+			// cbBoxProjType
+			// 
+			this.cbBoxProjType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+			this.cbBoxProjType.FormattingEnabled = true;
+			this.cbBoxProjType.Items.AddRange(new object[] {
+            "test",
+            "auction"});
+			this.cbBoxProjType.Location = new System.Drawing.Point(121, 12);
+			this.cbBoxProjType.Name = "cbBoxProjType";
+			this.cbBoxProjType.Size = new System.Drawing.Size(121, 20);
+			this.cbBoxProjType.TabIndex = 2;
+			this.cbBoxProjType.SelectedIndexChanged += new System.EventHandler(this.cbBoxProjType_SelectedIndexChanged);
+			// 
+			// label3
+			// 
+			this.label3.AutoSize = true;
+			this.label3.Location = new System.Drawing.Point(12, 15);
+			this.label3.Name = "label3";
+			this.label3.Size = new System.Drawing.Size(101, 12);
+			this.label3.TabIndex = 3;
+			this.label3.Text = "请选择项目类型：";
+			// 
 			// Form1
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-			this.ClientSize = new System.Drawing.Size(469, 285);
+			this.ClientSize = new System.Drawing.Size(458, 311);
+			this.Controls.Add(this.label3);
+			this.Controls.Add(this.cbBoxProjType);
 			this.Controls.Add(this.groupBox2);
 			this.Controls.Add(this.groupBox1);
 			this.MaximizeBox = false;
 			this.Name = "Form1";
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
 			this.Text = "quge竞拍项目数据分析";
+			this.Load += new System.EventHandler(this.Form1_Load);
 			this.groupBox1.ResumeLayout(false);
 			this.groupBox1.PerformLayout();
 			this.groupBox2.ResumeLayout(false);
 			this.groupBox2.PerformLayout();
 			this.ResumeLayout(false);
+			this.PerformLayout();
 
 		}
 
@@ -243,6 +273,8 @@
 		private System.Windows.Forms.Label label7;
 		private System.Windows.Forms.SaveFileDialog saveFileDialogMore;
 		private System.Windows.Forms.SaveFileDialog saveFileDialogLess;
+		private System.Windows.Forms.ComboBox cbBoxProjType;
+		private System.Windows.Forms.Label label3;
 	}
 }
 

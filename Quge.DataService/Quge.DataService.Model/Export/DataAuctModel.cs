@@ -11,7 +11,7 @@ namespace Quge.DataService.Model.Export
 		/// <summary>
 		/// 用户Id
 		/// </summary>
-		public string pid { get; set; }
+		public int pid { get; set; }
 		/// <summary>
 		/// 该期出拍商品名称
 		/// </summary>

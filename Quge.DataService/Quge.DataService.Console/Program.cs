@@ -67,30 +67,33 @@ namespace Quge.DataService.Console
 			#region 日志模拟
 
 			//注册
-			//for (int i = 0; i < dataCount; i++)
-			//{
-			//	var dict = GetInitDict(DataLogTypeEnum.Register);
-			//	dict.Add("pid", $"10000{(i + 1).ToString().PadLeft(5, '0')}");
-			//	dict.Add("channel", i % 3 == 0 ? "小米" : i % 3 == 1 ? "华为" : "vivo");
-			//	AliyunLogService.WriteLog(dict);
-			//}
+			for (int i = 0; i < dataCount; i++)
+			{
+				var dict = GetInitDict(DataLogTypeEnum.Register);
+				dict.Add("pid", $"10000{(i + 1).ToString().PadLeft(5, '0')}");
+				dict.Add("channel", i % 3 == 0 ? "小米" : i % 3 == 1 ? "华为" : "vivo");
+				AliyunLogService.WriteLog(dict);
+			}
+			System.Console.WriteLine("注册模拟成功！");
 
 			//登录
-			//for (int i = 0; i < dataCount; i++)
-			//{
-			//	var dict = GetInitDict(DataLogTypeEnum.Login);
-			//	dict.Add("pid", $"10000{(i + 1).ToString().PadLeft(5, '0')}");
-			//	AliyunLogService.WriteLog(dict);
-			//}
+			for (int i = 0; i < dataCount; i++)
+			{
+				var dict = GetInitDict(DataLogTypeEnum.Login);
+				dict.Add("pid", $"10000{(i + 1).ToString().PadLeft(5, '0')}");
+				AliyunLogService.WriteLog(dict);
+			}
+			System.Console.WriteLine("登录模拟成功！");
 
 			//支付
-			//for (int i = 0; i < dataCount; i++)
-			//{
-			//	var dict = GetInitDict(DataLogTypeEnum.Pay);
-			//	dict.Add("pid", $"10000{(i + 1).ToString().PadLeft(5, '0')}");
-			//	dict.Add("fee", (50 + i % 5).ToString());
-			//	AliyunLogService.WriteLog(dict);
-			//}
+			for (int i = 0; i < dataCount; i++)
+			{
+				var dict = GetInitDict(DataLogTypeEnum.Pay);
+				dict.Add("pid", $"10000{(i + 1).ToString().PadLeft(5, '0')}");
+				dict.Add("fee", (50 + i % 5).ToString());
+				AliyunLogService.WriteLog(dict);
+			}
+			System.Console.WriteLine("支付模拟成功！");
 
 			//竞拍
 			for (int i = 0; i < dataCount; i++)
@@ -99,9 +102,21 @@ namespace Quge.DataService.Console
 				dict.Add("pid", $"10000{(i + 1).ToString().PadLeft(5, '0')}");
 				dict.Add("termIndex", ((i % 10) + 1).ToString());
 				dict.Add("auctionName", $"Goods{i.ToString().PadLeft(5, '0')}");
+				AliyunLogService.WriteLog(dict);
+			}
+			System.Console.WriteLine("竞拍模拟成功！");
+
+			//竞拍中奖记录
+			for (int i = 0; i < dataCount; i++)
+			{
+				var dict = GetInitDict(DataLogTypeEnum.AuctionPrize);
+				dict.Add("pid", $"10000{(i + 1).ToString().PadLeft(5, '0')}");
+				dict.Add("termIndex", ((i % 10) + 1).ToString());
+				dict.Add("auctionName", $"Goods{i.ToString().PadLeft(5, '0')}");
 				dict.Add("isWinPrize", i % 3 == 0 ? "1" : "0");
 				AliyunLogService.WriteLog(dict);
 			}
+			System.Console.WriteLine("竞拍中奖记录模拟成功！");
 
 			#endregion
 			System.Console.WriteLine("模拟成功！");
