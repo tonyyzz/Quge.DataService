@@ -17,12 +17,12 @@ namespace Quge.DataService.Console
 			{
 				case DataLogTypeEnum.Login:
 					{
-						logData.dataLogin = dataRequest.dataStr.DeserializeObject<DataLogin>();
+						logData.dataLogin = dataRequest.dataStr.JsonDeserialize<DataLogin>();
 					}
 					break;
 				case DataLogTypeEnum.Pay:
 					{
-						logData.dataPay = dataRequest.dataStr.DeserializeObject<DataPay>();
+						logData.dataPay = dataRequest.dataStr.JsonDeserialize<DataPay>();
 					}
 					break;
 				default:

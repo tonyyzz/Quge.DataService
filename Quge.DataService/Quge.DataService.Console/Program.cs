@@ -1,5 +1,4 @@
 ﻿using Quge.DataService.Aliyun.Log;
-using Quge.DataService.Common;
 using Quge.DataService.Model;
 using System;
 using System.Collections.Generic;
@@ -94,14 +93,15 @@ namespace Quge.DataService.Console
 			//}
 
 			//竞拍
-			//for (int i = 0; i < dataCount; i++)
-			//{
-			//	var dict = GetInitDict(DataLogTypeEnum.Auction);
-			//	dict.Add("pid", $"10000{(i + 1).ToString().PadLeft(5, '0')}");
-			//	dict.Add("auctionName", $"Goods{i.ToString().PadLeft(5, '0')}");
-			//	dict.Add("isWinPrize", i % 3 == 0 ? "1" : "0");
-			//	AliyunLogService.WriteLog(dict);
-			//}
+			for (int i = 0; i < dataCount; i++)
+			{
+				var dict = GetInitDict(DataLogTypeEnum.Auction);
+				dict.Add("pid", $"10000{(i + 1).ToString().PadLeft(5, '0')}");
+				dict.Add("termIndex", ((i % 10) + 1).ToString());
+				dict.Add("auctionName", $"Goods{i.ToString().PadLeft(5, '0')}");
+				dict.Add("isWinPrize", i % 3 == 0 ? "1" : "0");
+				AliyunLogService.WriteLog(dict);
+			}
 
 			#endregion
 			System.Console.WriteLine("模拟成功！");

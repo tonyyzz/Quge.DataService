@@ -102,6 +102,10 @@
       <Project>{45c1e195-0384-4f3f-ab02-1a78db62e2bd}</Project>
       <Name>Quge.DataService.Aliyun</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Quge.DataService.Common\Quge.DataService.Common.csproj">
+      <Project>{e8c10d0b-5c85-4e9a-b2cb-11cb5e68571a}</Project>
+      <Name>Quge.DataService.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Quge.DataService.Model\Quge.DataService.Model.csproj">
       <Project>{e61b83cb-f779-43b8-9bef-b94a55e8ace0}</Project>
       <Name>Quge.DataService.Model</Name>

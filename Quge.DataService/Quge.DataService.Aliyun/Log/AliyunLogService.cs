@@ -2,13 +2,13 @@
 using Aliyun.Api.LOG.Data;
 using Aliyun.Api.LOG.Request;
 using Aliyun.Api.LOG.Response;
-using Quge.DataService.Common;
 using Quge.DataService.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.DateTimeHelper;
 
 namespace Quge.DataService.Aliyun.Log
 {
@@ -19,7 +19,7 @@ namespace Quge.DataService.Aliyun.Log
 			LogClient client = new LogClient(AliyunConfig.endpoint, AliyunConfig.accessKeyId, AliyunConfig.accessKeySecret);
 			List<LogItem> logs = new List<LogItem>();
 			LogItem item = new LogItem();
-			item.Time = Const.TimeUInt;
+			item.Time = DateTimeConst.TimeUInt;
 			foreach (var dictItem in dict)
 			{
 				item.PushBack(dictItem.Key, dictItem.Value);
@@ -51,9 +51,9 @@ namespace Quge.DataService.Aliyun.Log
 			{
 				res3 = client.GetLogs(new GetLogsRequest(AliyunConfig.project
 					, AliyunConfig.logstore
-					, DateHelper.GetUtcUIntFromTime(fromTime)
-					, DateHelper.GetUtcUIntFromTime(toTime)
-					, String.Empty, where, lines, offset, true));
+					, DateTimeHelper.GetUtcUIntFromTime(fromTime)
+					, DateTimeHelper.GetUtcUIntFromTime(toTime)
+					, String.Empty, where, lines, offset, false));
 			} while ((res3 != null) && (!res3.IsCompleted()));
 			foreach (QueriedLog log in res3.Logs)
 			{

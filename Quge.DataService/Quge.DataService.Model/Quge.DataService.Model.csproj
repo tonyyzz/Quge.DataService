@@ -46,6 +46,13 @@
     <Compile Include="DataPay.cs" />
     <Compile Include="DataPlatformEnum.cs" />
     <Compile Include="DataRequest.cs" />
+    <Compile Include="Export\AuctionModel.cs" />
+    <Compile Include="Export\DataAuctModel.cs" />
+    <Compile Include="Export\DataRLModel.cs" />
+    <Compile Include="Export\LoginModel.cs" />
+    <Compile Include="Export\PayModel.cs" />
+    <Compile Include="Export\RegisterModel.cs" />
+    <Compile Include="Export\TestModel.cs" />
     <Compile Include="LogData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

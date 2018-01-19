@@ -44,16 +44,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="common\DateHelper.cs" />
-    <Compile Include="common\EnumHelper.cs" />
-    <Compile Include="common\FileBinaryConvertHelper.cs" />
-    <Compile Include="common\ListHelper.cs" />
-    <Compile Include="common\ModelHelper.cs" />
-    <Compile Include="common\ObjectHelper.cs" />
-    <Compile Include="common\RandomHelper.cs" />
-    <Compile Include="common\StringHelper.cs" />
-    <Compile Include="Const.cs" />
-    <Compile Include="HttpClient.cs" />
+    <Compile Include="AHelper\CookieHelper.cs" />
+    <Compile Include="AHelper\DateTimeHelper.cs" />
+    <Compile Include="AHelper\EnumHelper.cs" />
+    <Compile Include="AHelper\FileBinaryConvertHelper.cs" />
+    <Compile Include="AHelper\FileHelper.cs" />
+    <Compile Include="AHelper\IPAddressHelper.cs" />
+    <Compile Include="AHelper\ListHelper.cs" />
+    <Compile Include="AHelper\ModelHelper.cs" />
+    <Compile Include="AHelper\ObjectHelper.cs" />
+    <Compile Include="AHelper\RandomHelper.cs" />
+    <Compile Include="AHelper\ResponseHelper.cs" />
+    <Compile Include="AHelper\StringHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
