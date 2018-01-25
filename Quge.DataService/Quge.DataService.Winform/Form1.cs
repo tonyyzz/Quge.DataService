@@ -86,13 +86,26 @@ namespace Quge.DataService.Winform
 				//获取该时间段的所有数据并进行分析
 
 				List<Dictionary<string, string>> registerDictList = new List<Dictionary<string, string>>();
-				GetLog(ref registerDictList, timeLeft, timeRight, projName, DataLogTypeEnum.Register, 1);
-
 				List<Dictionary<string, string>> loginDictList = new List<Dictionary<string, string>>();
-				GetLog(ref loginDictList, timeLeft, DateTime.Now, projName, DataLogTypeEnum.Login, 1);
-
 				List<Dictionary<string, string>> payDictList = new List<Dictionary<string, string>>();
-				GetLog(ref payDictList, timeLeft, DateTime.Now, projName, DataLogTypeEnum.Pay, 1);
+				try
+				{
+					GetLog(ref loginDictList, timeLeft, DateTime.Now, projName, DataLogTypeEnum.Login, 1);
+					GetLog(ref registerDictList, timeLeft, timeRight, projName, DataLogTypeEnum.Register, 1);
+					GetLog(ref payDictList, timeLeft, DateTime.Now, projName, DataLogTypeEnum.Pay, 1);
+				}
+				catch (Exception)
+				{
+					BeginInvoke(new Action(() =>
+					{
+						lblStateMore.Text = "网络异常，请重试！";
+						btnExpoertMore.Enabled = true;
+						dtpRegisterLeft.Enabled = true;
+						dtpRegisterRight.Enabled = true;
+						MessageBox.Show("网络异常，请重试！");
+					}));
+					return;
+				}
 
 				//List<Dictionary<string, string>> auctionDictList = new List<Dictionary<string, string>>();
 				//GetLog(ref auctionDictList, timeLeft, DateTime.Now, projName, DataLogTypeEnum.Auction, 1);
@@ -242,19 +255,31 @@ namespace Quge.DataService.Winform
 
 				//获取该时间段的所有数据并进行分析
 				List<Dictionary<string, string>> auctionDictList = new List<Dictionary<string, string>>();
-				GetLog(ref auctionDictList, timeLeft, timeRight, projName, DataLogTypeEnum.Auction, 1);
-
 				List<Dictionary<string, string>> auctionPrizeDictList = new List<Dictionary<string, string>>();
-				GetLog(ref auctionPrizeDictList, timeLeft, timeRight, projName, DataLogTypeEnum.AuctionPrize, 1);
 
-				//List<Dictionary<string, string>> payDictList = new List<Dictionary<string, string>>();
-				//GetLog(ref payDictList, timeLeft, timeRight, projName, DataLogTypeEnum.Pay, 1);
+				try
+				{
+					GetLog(ref auctionDictList, timeLeft, timeRight, projName, DataLogTypeEnum.Auction, 1);
+					GetLog(ref auctionPrizeDictList, timeLeft, DateTime.Now, projName, DataLogTypeEnum.AuctionPrize, 1);
+				}
+				catch (Exception)
+				{
+					BeginInvoke(new Action(() =>
+					{
+						lblStateLess.Text = "网络异常，请重试！";
+						btnExpoertLess.Enabled = true;
+						dtpAuctionLeft.Enabled = true;
+						dtpAuctionRight.Enabled = true;
+						MessageBox.Show("网络异常，请重试！");
+					}));
+					return;
+				}
 
 				var auctionModelList = auctionDictList.JsonSerialize().JsonDeserialize<List<AuctionModel>>();
 				var auctionPrizeModelList = auctionPrizeDictList.JsonSerialize().JsonDeserialize<List<AuctionModel>>();
-				//var payModelList = payDictList.JsonSerialize().JsonDeserialize<List<PayModel>>();
 
 
+				//var appointedAuctionPrizeModelList = auctionPrizeModelList.Where(m => m.pidInt == 10008331).ToList();
 
 				if (!auctionModelList.Any())
 				{
@@ -296,10 +321,12 @@ namespace Quge.DataService.Winform
 					.OrderByDescending(m => m.Time)
 					.FirstOrDefault(m => m.IsWinPrize);
 
-					//if (prizeInfo != null)
-					//{
-					//	item.IsFinalWinPrize = true;
-					//}
+					if (prizeInfo != null)
+					{
+						item.IsFinalWinPrize = true;
+					}
+
+
 					//var payInfoLi = payModelList.Where(m => m.pidInt == item.pid);
 					//if (payInfoLi.Any())
 					//{
