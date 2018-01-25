@@ -97,11 +97,11 @@ namespace Quge.DataService.Winform
 				{
 					BeginInvoke(new Action(() =>
 					{
-						lblStateMore.Text = "暂无数据，导出失败！";
+						lblStateMore.Text = "暂无数据，无法导出！";
 						btnExpoertMore.Enabled = true;
 						dtpRegisterLeft.Enabled = true;
 						dtpRegisterRight.Enabled = true;
-						MessageBox.Show("暂无数据，导出失败");
+						MessageBox.Show("暂无数据，无法导出");
 					}));
 					return;
 				}
@@ -237,21 +237,26 @@ namespace Quge.DataService.Winform
 				GetLog(ref auctionDictList, timeLeft, timeRight, projName, DataLogTypeEnum.Auction, 1);
 
 				List<Dictionary<string, string>> auctionPrizeDictList = new List<Dictionary<string, string>>();
-				GetLog(ref auctionPrizeDictList, timeLeft, DateTime.Now, projName, DataLogTypeEnum.AuctionPrize, 1);
+				GetLog(ref auctionPrizeDictList, timeLeft, timeRight, projName, DataLogTypeEnum.AuctionPrize, 1);
 
+				List<Dictionary<string, string>> payDictList = new List<Dictionary<string, string>>();
+				GetLog(ref payDictList, timeLeft, timeRight, projName, DataLogTypeEnum.Pay, 1);
 
 				var auctionModelList = auctionDictList.JsonSerialize().JsonDeserialize<List<AuctionModel>>();
 				var auctionPrizeModelList = auctionPrizeDictList.JsonSerialize().JsonDeserialize<List<AuctionModel>>();
+				var payModelList = payDictList.JsonSerialize().JsonDeserialize<List<PayModel>>();
+
+
 
 				if (!auctionModelList.Any())
 				{
 					BeginInvoke(new Action(() =>
 					{
-						lblStateLess.Text = "暂无数据，导出失败！";
+						lblStateLess.Text = "暂无数据，无法导出！";
 						btnExpoertLess.Enabled = true;
 						dtpAuctionLeft.Enabled = true;
 						dtpAuctionRight.Enabled = true;
-						MessageBox.Show("暂无数据，导出失败！");
+						MessageBox.Show("暂无数据，无法导出！");
 					}));
 					return;
 				}
@@ -286,6 +291,11 @@ namespace Quge.DataService.Winform
 					if (prizeInfo != null)
 					{
 						item.IsFinalWinPrize = true;
+					}
+					var payInfoLi = payModelList.Where(m => m.pidInt == item.pid);
+					if (payInfoLi.Any())
+					{
+						item.TotalFeeYuan = payInfoLi.Sum(m => m.FeeYuan);
 					}
 				}
 
@@ -346,7 +356,7 @@ namespace Quge.DataService.Winform
 			cell.SetCellValue("用户id");
 			cell.CellStyle = celStyle;
 
-			sheet.SetColumnWidth(1, 20 * 256);
+			sheet.SetColumnWidth(1, 60 * 256);
 			cell = row.CreateCell(1);
 			cell.SetCellValue("出拍商品名称");
 			cell.CellStyle = celStyle;
@@ -369,6 +379,16 @@ namespace Quge.DataService.Winform
 			sheet.SetColumnWidth(5, 20 * 256);
 			cell = row.CreateCell(5);
 			cell.SetCellValue("是否中奖");
+			cell.CellStyle = celStyle;
+
+			//sheet.SetColumnWidth(6, 20 * 256);
+			//cell = row.CreateCell(6);
+			//cell.SetCellValue("充值时间");
+			//cell.CellStyle = celStyle;
+
+			sheet.SetColumnWidth(6, 20 * 256);
+			cell = row.CreateCell(6);
+			cell.SetCellValue("充值总额度（元）");
 			cell.CellStyle = celStyle;
 		}
 
@@ -408,6 +428,10 @@ namespace Quge.DataService.Winform
 				cell = row.CreateCell(5) as HSSFCell;
 				cell.CellStyle = cellStyle;
 				cell.SetCellValue(item.IsFinalWinPrize ? "√" : "×");
+
+				cell = row.CreateCell(6) as HSSFCell;
+				cell.CellStyle = totalFeeCellStyle;
+				cell.SetCellValue(item.TotalFeeYuan);
 			}
 		}
 		/// <summary>

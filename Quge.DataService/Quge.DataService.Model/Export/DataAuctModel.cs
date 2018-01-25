@@ -32,5 +32,15 @@ namespace Quge.DataService.Model.Export
 		/// 用户在该期该商品最终是否中奖
 		/// </summary>
 		public bool IsFinalWinPrize { get; set; }
+
+
+		///// <summary>
+		///// 充值时间
+		///// </summary>
+		//public DateTime PayTime { get; set; }
+		/// <summary>
+		/// 充值总额度（元）
+		/// </summary>
+		public double TotalFeeYuan { get; set; }
 	}
 }
