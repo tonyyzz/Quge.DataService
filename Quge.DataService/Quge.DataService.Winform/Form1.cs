@@ -29,6 +29,14 @@ namespace Quge.DataService.Winform
 
 		private void Form1_Load(object sender, EventArgs e)
 		{
+			//动态加载项目名称
+			var projNameStr = FileHelper.Read("_projName.txt", Encoding.UTF8);
+			var projNameList = projNameStr.Split(new char[] { '|' }, StringSplitOptions.RemoveEmptyEntries).ToList();
+			cbBoxProjType.Items.Clear();
+			foreach (var item in projNameList)
+			{
+				cbBoxProjType.Items.Add(item);
+			}
 			cbBoxProjType.SelectedIndex = 0;
 			projName = (string)cbBoxProjType.SelectedItem;
 		}
