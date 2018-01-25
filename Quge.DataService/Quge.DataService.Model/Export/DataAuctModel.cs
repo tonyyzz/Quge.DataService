@@ -41,6 +41,6 @@ namespace Quge.DataService.Model.Export
 		/// <summary>
 		/// 充值总额度（元）
 		/// </summary>
-		public double TotalFeeYuan { get; set; }
+		//public double TotalFeeYuan { get; set; }
 	}
 }

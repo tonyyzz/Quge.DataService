@@ -239,12 +239,12 @@ namespace Quge.DataService.Winform
 				List<Dictionary<string, string>> auctionPrizeDictList = new List<Dictionary<string, string>>();
 				GetLog(ref auctionPrizeDictList, timeLeft, timeRight, projName, DataLogTypeEnum.AuctionPrize, 1);
 
-				List<Dictionary<string, string>> payDictList = new List<Dictionary<string, string>>();
-				GetLog(ref payDictList, timeLeft, timeRight, projName, DataLogTypeEnum.Pay, 1);
+				//List<Dictionary<string, string>> payDictList = new List<Dictionary<string, string>>();
+				//GetLog(ref payDictList, timeLeft, timeRight, projName, DataLogTypeEnum.Pay, 1);
 
 				var auctionModelList = auctionDictList.JsonSerialize().JsonDeserialize<List<AuctionModel>>();
 				var auctionPrizeModelList = auctionPrizeDictList.JsonSerialize().JsonDeserialize<List<AuctionModel>>();
-				var payModelList = payDictList.JsonSerialize().JsonDeserialize<List<PayModel>>();
+				//var payModelList = payDictList.JsonSerialize().JsonDeserialize<List<PayModel>>();
 
 
 
@@ -288,15 +288,15 @@ namespace Quge.DataService.Winform
 					.OrderByDescending(m => m.Time)
 					.FirstOrDefault(m => m.IsWinPrize);
 
-					if (prizeInfo != null)
-					{
-						item.IsFinalWinPrize = true;
-					}
-					var payInfoLi = payModelList.Where(m => m.pidInt == item.pid);
-					if (payInfoLi.Any())
-					{
-						item.TotalFeeYuan = payInfoLi.Sum(m => m.FeeYuan);
-					}
+					//if (prizeInfo != null)
+					//{
+					//	item.IsFinalWinPrize = true;
+					//}
+					//var payInfoLi = payModelList.Where(m => m.pidInt == item.pid);
+					//if (payInfoLi.Any())
+					//{
+					//	item.TotalFeeYuan = payInfoLi.Sum(m => m.FeeYuan);
+					//}
 				}
 
 				HSSFWorkbook hssfworkbook = new HSSFWorkbook();
@@ -373,11 +373,16 @@ namespace Quge.DataService.Winform
 
 			sheet.SetColumnWidth(4, 20 * 256);
 			cell = row.CreateCell(4);
-			cell.SetCellValue("总共出拍的次数");
+			//cell.SetCellValue("第一次出拍时间");
 			cell.CellStyle = celStyle;
 
 			sheet.SetColumnWidth(5, 20 * 256);
 			cell = row.CreateCell(5);
+			cell.SetCellValue("总共出拍的次数");
+			cell.CellStyle = celStyle;
+
+			sheet.SetColumnWidth(6, 20 * 256);
+			cell = row.CreateCell(6);
 			cell.SetCellValue("是否中奖");
 			cell.CellStyle = celStyle;
 
@@ -386,10 +391,10 @@ namespace Quge.DataService.Winform
 			//cell.SetCellValue("充值时间");
 			//cell.CellStyle = celStyle;
 
-			sheet.SetColumnWidth(6, 20 * 256);
-			cell = row.CreateCell(6);
-			cell.SetCellValue("充值总额度（元）");
-			cell.CellStyle = celStyle;
+			//sheet.SetColumnWidth(6, 20 * 256);
+			//cell = row.CreateCell(6);
+			//cell.SetCellValue("充值总额度（元）");
+			//cell.CellStyle = celStyle;
 		}
 
 		private void AuctDataHandle(HSSFWorkbook hssfworkbook, HSSFSheet sheet, List<DataAuctModel> list)
@@ -423,15 +428,19 @@ namespace Quge.DataService.Winform
 
 				cell = row.CreateCell(4) as HSSFCell;
 				cell.CellStyle = cellStyle;
-				cell.SetCellValue(item.AuctionCountOfThisTerm);
+				cell.SetCellValue("");
 
 				cell = row.CreateCell(5) as HSSFCell;
 				cell.CellStyle = cellStyle;
-				cell.SetCellValue(item.IsFinalWinPrize ? "√" : "×");
+				cell.SetCellValue(item.AuctionCountOfThisTerm);
 
 				cell = row.CreateCell(6) as HSSFCell;
-				cell.CellStyle = totalFeeCellStyle;
-				cell.SetCellValue(item.TotalFeeYuan);
+				cell.CellStyle = cellStyle;
+				cell.SetCellValue(item.IsFinalWinPrize ? "√" : "×");
+
+				//cell = row.CreateCell(6) as HSSFCell;
+				//cell.CellStyle = totalFeeCellStyle;
+				//cell.SetCellValue(item.TotalFeeYuan);
 			}
 		}
 		/// <summary>
