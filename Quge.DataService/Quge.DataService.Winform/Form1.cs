@@ -35,7 +35,7 @@ namespace Quge.DataService.Winform
 			cbBoxProjType.Items.Clear();
 			foreach (var item in projNameList)
 			{
-				cbBoxProjType.Items.Add(item);
+				cbBoxProjType.Items.Add(item.Trim());
 			}
 			cbBoxProjType.SelectedIndex = 0;
 			projName = (string)cbBoxProjType.SelectedItem;
