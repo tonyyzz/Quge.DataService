@@ -19,7 +19,8 @@ namespace Quge.DataService.Aliyun.Log
 			LogClient client = new LogClient(AliyunConfig.endpoint, AliyunConfig.accessKeyId, AliyunConfig.accessKeySecret);
 			List<LogItem> logs = new List<LogItem>();
 			LogItem item = new LogItem();
-			item.Time = DateTimeConst.TimeUInt;
+			item.Time = DateTimeHelper.GetUtcUIntFromTime(DateTime.Now);
+			Console.WriteLine(item.Time);
 			foreach (var dictItem in dict)
 			{
 				item.PushBack(dictItem.Key, dictItem.Value);

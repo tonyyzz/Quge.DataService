@@ -222,6 +222,7 @@ namespace Quge.DataService.Winform
 		private void btnExpoertLess_Click(object sender, EventArgs e)
 		{
 			DateTime timeLeft = dtpAuctionLeft.Value.Date;
+			//timeLeft = dtpAuctionLeft.Value.AddMinutes(-13);
 			DateTime timeRight = dtpAuctionRight.Value;
 			if ((timeRight - timeLeft).TotalSeconds < 0)
 			{
