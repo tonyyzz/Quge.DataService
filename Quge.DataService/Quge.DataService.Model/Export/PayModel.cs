@@ -17,7 +17,17 @@ namespace Quge.DataService.Model.Export
 		{
 			get
 			{
-				return Convert.ToInt32(fee) * 1.0 / 100;
+				double f = 0;
+				//兼容
+				if (fee.Contains("."))
+				{
+					f = Convert.ToDouble(fee) * 100;
+				}
+				else
+				{
+					f = Convert.ToDouble(fee);
+				}
+				return Convert.ToInt32(f.ToString("0")) * 1.0 / 100;
 			}
 		}
 

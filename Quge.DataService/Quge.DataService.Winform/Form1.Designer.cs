@@ -119,7 +119,7 @@
 			this.dtpRegisterLeft.Name = "dtpRegisterLeft";
 			this.dtpRegisterLeft.Size = new System.Drawing.Size(138, 21);
 			this.dtpRegisterLeft.TabIndex = 1;
-			this.dtpRegisterLeft.Value = new System.DateTime(2018, 1, 17, 16, 41, 0, 0);
+			this.dtpRegisterLeft.Value = new System.DateTime(2018, 1, 25, 19, 26, 54, 0);
 			// 
 			// label1
 			// 
