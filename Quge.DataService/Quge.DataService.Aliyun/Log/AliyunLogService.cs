@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using static System.DateTimeHelper;
 
@@ -41,21 +42,63 @@ namespace Quge.DataService.Aliyun.Log
 		/// <param name="lines">每次请求获取的数量，目前最大值仅有100</param>
 		/// <param name="offset">偏移量（以在该时间区间内的数据总量为参考的偏移量，可以通过分页，递归的方式获取所有数据）</param>
 		/// <returns></returns>
-		public static List<Dictionary<string, string>> ReadLog(DateTime fromTime, DateTime toTime
-			, string where = "", int lines = int.MaxValue, int offset = 0)
+		public static List<Dictionary<string, string>> ReadLog(out bool isException,DateTime fromTime, DateTime toTime
+			, string where = "", int lines = int.MaxValue, int offset = 0 )
 		{
 			List<Dictionary<string, string>> list = new List<Dictionary<string, string>>();
 			LogClient client = new LogClient(AliyunConfig.endpoint, AliyunConfig.accessKeyId, AliyunConfig.accessKeySecret);
 			//查询日志数据
 			GetLogsResponse res3 = null;
-			do
+			//try
+			//{
+			//	do
+			//	{
+			//		res3 = client.GetLogs(new GetLogsRequest(AliyunConfig.project
+			//			, AliyunConfig.logstore
+			//			, DateTimeHelper.GetUtcUIntFromTime(fromTime)
+			//			, DateTimeHelper.GetUtcUIntFromTime(toTime)
+			//			, String.Empty, where, lines, offset, false));
+			//	} while ((res3 != null) && (!res3.IsCompleted()));
+			//}
+			//catch (Exception)
+			//{
+			//	//return list;
+
+			//}
+
+			int index = 1;
+			isException = false;
+			while (index <= 5) //尝试5次
 			{
-				res3 = client.GetLogs(new GetLogsRequest(AliyunConfig.project
-					, AliyunConfig.logstore
-					, DateTimeHelper.GetUtcUIntFromTime(fromTime)
-					, DateTimeHelper.GetUtcUIntFromTime(toTime)
-					, String.Empty, where, lines, offset, false));
-			} while ((res3 != null) && (!res3.IsCompleted()));
+				try
+				{
+					isException = false;
+					do
+					{
+						res3 = client.GetLogs(new GetLogsRequest(AliyunConfig.project
+							, AliyunConfig.logstore
+							, DateTimeHelper.GetUtcUIntFromTime(fromTime)
+							, DateTimeHelper.GetUtcUIntFromTime(toTime)
+							, String.Empty, where, lines, offset, false));
+					} while ((res3 != null) && (!res3.IsCompleted()));
+				}
+				catch (Exception)
+				{
+					index++;
+					isException = true;
+					Thread.Sleep(1); //尝试失败，则休眠1毫秒
+				}
+				if (!isException)
+				{
+					break;
+				}
+			}
+
+			if (isException)
+			{
+				return list;
+			}
+			
 			foreach (QueriedLog log in res3.Logs)
 			{
 				Dictionary<string, string> dict = new Dictionary<string, string>();

@@ -195,6 +195,9 @@ namespace Quge.DataService.Winform
 					}
 				}
 
+				//筛选 有充值记录的注册用户
+				dataList = dataList.Where(m => m.TotalFeeYuan > 0).ToList();
+
 
 				HSSFWorkbook hssfworkbook = new HSSFWorkbook();
 				HSSFSheet sheet = hssfworkbook.CreateSheet("RLData") as HSSFSheet;
@@ -205,7 +208,7 @@ namespace Quge.DataService.Winform
 
 				BeginInvoke(new Action(() =>
 				{
-					lblStateMore.Text = "导出成功！";
+					lblStateMore.Text = "导出成功！" + DateTime.Now.ToStr();
 					btnExpoertMore.Enabled = true;
 					dtpRegisterLeft.Enabled = true;
 					dtpRegisterRight.Enabled = true;
@@ -258,23 +261,23 @@ namespace Quge.DataService.Winform
 				List<Dictionary<string, string>> auctionDictList = new List<Dictionary<string, string>>();
 				List<Dictionary<string, string>> auctionPrizeDictList = new List<Dictionary<string, string>>();
 
-				try
-				{
-					GetLog(ref auctionDictList, timeLeft, timeRight, projName, DataLogTypeEnum.Auction, 1);
-					GetLog(ref auctionPrizeDictList, timeLeft, DateTime.Now, projName, DataLogTypeEnum.AuctionPrize, 1);
-				}
-				catch (Exception)
-				{
-					BeginInvoke(new Action(() =>
-					{
-						lblStateLess.Text = "网络异常，请重试！";
-						btnExpoertLess.Enabled = true;
-						dtpAuctionLeft.Enabled = true;
-						dtpAuctionRight.Enabled = true;
-						MessageBox.Show("网络异常，请重试！");
-					}));
-					return;
-				}
+				//try
+				//{
+				GetLog(ref auctionDictList, timeLeft, timeRight, projName, DataLogTypeEnum.Auction, 1);
+				GetLog(ref auctionPrizeDictList, timeLeft, DateTime.Now, projName, DataLogTypeEnum.AuctionPrize, 1);
+				//}
+				//catch (Exception ex)
+				//{
+				//	BeginInvoke(new Action(() =>
+				//	{
+				//		lblStateLess.Text = "网络异常，请重试！";
+				//		btnExpoertLess.Enabled = true;
+				//		dtpAuctionLeft.Enabled = true;
+				//		dtpAuctionRight.Enabled = true;
+				//		MessageBox.Show("网络异常，请重试！" + Environment.NewLine + ex.ToString());
+				//	}));
+				//	return;
+				//}
 
 				var auctionModelList = auctionDictList.JsonSerialize().JsonDeserialize<List<AuctionModel>>();
 				var auctionPrizeModelList = auctionPrizeDictList.JsonSerialize().JsonDeserialize<List<AuctionModel>>();
@@ -344,7 +347,7 @@ namespace Quge.DataService.Winform
 
 				BeginInvoke(new Action(() =>
 				{
-					lblStateLess.Text = "导出成功！";
+					lblStateLess.Text = "导出成功！" + DateTime.Now.ToStr();
 					btnExpoertLess.Enabled = true;
 					dtpAuctionLeft.Enabled = true;
 					dtpAuctionRight.Enabled = true;
@@ -371,13 +374,23 @@ namespace Quge.DataService.Winform
 			DateTime timeLeft, DateTime timeRight,
 			string projName, DataLogTypeEnum logTypeEnum, int pageIndex)
 		{
+			//Thread.Sleep(1);
 			int singleMexCount = 100;
-			var result = AliyunLogService.ReadLog(timeLeft, timeRight,
+			bool isException = false;
+			var result = AliyunLogService.ReadLog(out isException, timeLeft, timeRight,
 				$"projName:{projName} and logType:{(int)logTypeEnum}", offset: (pageIndex - 1) * singleMexCount);
+
 			if (result.Any())
 			{
 				list.AddRange(result);
 				GetLog(ref list, timeLeft, timeRight, projName, logTypeEnum, pageIndex + 1);
+			}
+			else
+			{
+				if (isException)
+				{
+					GetLog(ref list, timeLeft, timeRight, projName, logTypeEnum, pageIndex + 1);
+				}
 			}
 		}
 
