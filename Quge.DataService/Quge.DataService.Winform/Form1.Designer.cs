@@ -61,9 +61,11 @@
 			this.groupBox1.Controls.Add(this.dtpRegisterRight);
 			this.groupBox1.Controls.Add(this.dtpRegisterLeft);
 			this.groupBox1.Controls.Add(this.label1);
-			this.groupBox1.Location = new System.Drawing.Point(14, 50);
+			this.groupBox1.Location = new System.Drawing.Point(19, 62);
+			this.groupBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
 			this.groupBox1.Name = "groupBox1";
-			this.groupBox1.Size = new System.Drawing.Size(424, 103);
+			this.groupBox1.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+			this.groupBox1.Size = new System.Drawing.Size(565, 129);
 			this.groupBox1.TabIndex = 0;
 			this.groupBox1.TabStop = false;
 			this.groupBox1.Text = "数据集1（所有用户的详细信息）";
@@ -72,26 +74,29 @@
 			// 
 			this.lblStateMore.AutoSize = true;
 			this.lblStateMore.ForeColor = System.Drawing.Color.Green;
-			this.lblStateMore.Location = new System.Drawing.Point(109, 88);
+			this.lblStateMore.Location = new System.Drawing.Point(145, 110);
+			this.lblStateMore.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
 			this.lblStateMore.Name = "lblStateMore";
-			this.lblStateMore.Size = new System.Drawing.Size(41, 12);
+			this.lblStateMore.Size = new System.Drawing.Size(55, 15);
 			this.lblStateMore.TabIndex = 6;
 			this.lblStateMore.Text = "label8";
 			// 
 			// label6
 			// 
 			this.label6.AutoSize = true;
-			this.label6.Location = new System.Drawing.Point(28, 88);
+			this.label6.Location = new System.Drawing.Point(37, 110);
+			this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
 			this.label6.Name = "label6";
-			this.label6.Size = new System.Drawing.Size(65, 12);
+			this.label6.Size = new System.Drawing.Size(82, 15);
 			this.label6.TabIndex = 5;
 			this.label6.Text = "导出状态：";
 			// 
 			// btnExpoertMore
 			// 
-			this.btnExpoertMore.Location = new System.Drawing.Point(336, 74);
+			this.btnExpoertMore.Location = new System.Drawing.Point(448, 92);
+			this.btnExpoertMore.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
 			this.btnExpoertMore.Name = "btnExpoertMore";
-			this.btnExpoertMore.Size = new System.Drawing.Size(75, 23);
+			this.btnExpoertMore.Size = new System.Drawing.Size(100, 29);
 			this.btnExpoertMore.TabIndex = 4;
 			this.btnExpoertMore.Text = "导出并保存";
 			this.btnExpoertMore.UseVisualStyleBackColor = true;
@@ -100,33 +105,37 @@
 			// label2
 			// 
 			this.label2.AutoSize = true;
-			this.label2.Location = new System.Drawing.Point(256, 33);
+			this.label2.Location = new System.Drawing.Point(341, 41);
+			this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
 			this.label2.Name = "label2";
-			this.label2.Size = new System.Drawing.Size(11, 12);
+			this.label2.Size = new System.Drawing.Size(15, 15);
 			this.label2.TabIndex = 3;
 			this.label2.Text = "-";
 			// 
 			// dtpRegisterRight
 			// 
-			this.dtpRegisterRight.Location = new System.Drawing.Point(273, 27);
+			this.dtpRegisterRight.Location = new System.Drawing.Point(364, 34);
+			this.dtpRegisterRight.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
 			this.dtpRegisterRight.Name = "dtpRegisterRight";
-			this.dtpRegisterRight.Size = new System.Drawing.Size(138, 21);
+			this.dtpRegisterRight.Size = new System.Drawing.Size(183, 25);
 			this.dtpRegisterRight.TabIndex = 2;
 			// 
 			// dtpRegisterLeft
 			// 
-			this.dtpRegisterLeft.Location = new System.Drawing.Point(111, 28);
+			this.dtpRegisterLeft.Location = new System.Drawing.Point(148, 35);
+			this.dtpRegisterLeft.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
 			this.dtpRegisterLeft.Name = "dtpRegisterLeft";
-			this.dtpRegisterLeft.Size = new System.Drawing.Size(138, 21);
+			this.dtpRegisterLeft.Size = new System.Drawing.Size(183, 25);
 			this.dtpRegisterLeft.TabIndex = 1;
 			this.dtpRegisterLeft.Value = new System.DateTime(2018, 1, 25, 19, 26, 54, 0);
 			// 
 			// label1
 			// 
 			this.label1.AutoSize = true;
-			this.label1.Location = new System.Drawing.Point(28, 33);
+			this.label1.Location = new System.Drawing.Point(37, 41);
+			this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
 			this.label1.Name = "label1";
-			this.label1.Size = new System.Drawing.Size(65, 12);
+			this.label1.Size = new System.Drawing.Size(82, 15);
 			this.label1.TabIndex = 0;
 			this.label1.Text = "注册时间：";
 			// 
@@ -139,9 +148,11 @@
 			this.groupBox2.Controls.Add(this.dtpAuctionRight);
 			this.groupBox2.Controls.Add(this.dtpAuctionLeft);
 			this.groupBox2.Controls.Add(this.label4);
-			this.groupBox2.Location = new System.Drawing.Point(14, 175);
+			this.groupBox2.Location = new System.Drawing.Point(19, 219);
+			this.groupBox2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
 			this.groupBox2.Name = "groupBox2";
-			this.groupBox2.Size = new System.Drawing.Size(424, 104);
+			this.groupBox2.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+			this.groupBox2.Size = new System.Drawing.Size(565, 130);
 			this.groupBox2.TabIndex = 1;
 			this.groupBox2.TabStop = false;
 			this.groupBox2.Text = "数据集2（所有用户的竞拍信息）";
@@ -150,26 +161,29 @@
 			// 
 			this.lblStateLess.AutoSize = true;
 			this.lblStateLess.ForeColor = System.Drawing.Color.Green;
-			this.lblStateLess.Location = new System.Drawing.Point(111, 88);
+			this.lblStateLess.Location = new System.Drawing.Point(148, 110);
+			this.lblStateLess.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
 			this.lblStateLess.Name = "lblStateLess";
-			this.lblStateLess.Size = new System.Drawing.Size(41, 12);
+			this.lblStateLess.Size = new System.Drawing.Size(55, 15);
 			this.lblStateLess.TabIndex = 7;
 			this.lblStateLess.Text = "label9";
 			// 
 			// label7
 			// 
 			this.label7.AutoSize = true;
-			this.label7.Location = new System.Drawing.Point(30, 88);
+			this.label7.Location = new System.Drawing.Point(40, 110);
+			this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
 			this.label7.Name = "label7";
-			this.label7.Size = new System.Drawing.Size(65, 12);
+			this.label7.Size = new System.Drawing.Size(82, 15);
 			this.label7.TabIndex = 7;
 			this.label7.Text = "导出状态：";
 			// 
 			// btnExpoertLess
 			// 
-			this.btnExpoertLess.Location = new System.Drawing.Point(338, 77);
+			this.btnExpoertLess.Location = new System.Drawing.Point(451, 96);
+			this.btnExpoertLess.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
 			this.btnExpoertLess.Name = "btnExpoertLess";
-			this.btnExpoertLess.Size = new System.Drawing.Size(75, 23);
+			this.btnExpoertLess.Size = new System.Drawing.Size(100, 29);
 			this.btnExpoertLess.TabIndex = 5;
 			this.btnExpoertLess.Text = "导出并保存";
 			this.btnExpoertLess.UseVisualStyleBackColor = true;
@@ -178,32 +192,36 @@
 			// label5
 			// 
 			this.label5.AutoSize = true;
-			this.label5.Location = new System.Drawing.Point(257, 35);
+			this.label5.Location = new System.Drawing.Point(343, 44);
+			this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
 			this.label5.Name = "label5";
-			this.label5.Size = new System.Drawing.Size(11, 12);
+			this.label5.Size = new System.Drawing.Size(15, 15);
 			this.label5.TabIndex = 5;
 			this.label5.Text = "-";
 			// 
 			// dtpAuctionRight
 			// 
-			this.dtpAuctionRight.Location = new System.Drawing.Point(275, 29);
+			this.dtpAuctionRight.Location = new System.Drawing.Point(367, 36);
+			this.dtpAuctionRight.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
 			this.dtpAuctionRight.Name = "dtpAuctionRight";
-			this.dtpAuctionRight.Size = new System.Drawing.Size(138, 21);
+			this.dtpAuctionRight.Size = new System.Drawing.Size(183, 25);
 			this.dtpAuctionRight.TabIndex = 6;
 			// 
 			// dtpAuctionLeft
 			// 
-			this.dtpAuctionLeft.Location = new System.Drawing.Point(113, 29);
+			this.dtpAuctionLeft.Location = new System.Drawing.Point(151, 36);
+			this.dtpAuctionLeft.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
 			this.dtpAuctionLeft.Name = "dtpAuctionLeft";
-			this.dtpAuctionLeft.Size = new System.Drawing.Size(138, 21);
+			this.dtpAuctionLeft.Size = new System.Drawing.Size(183, 25);
 			this.dtpAuctionLeft.TabIndex = 5;
 			// 
 			// label4
 			// 
 			this.label4.AutoSize = true;
-			this.label4.Location = new System.Drawing.Point(6, 29);
+			this.label4.Location = new System.Drawing.Point(8, 36);
+			this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
 			this.label4.Name = "label4";
-			this.label4.Size = new System.Drawing.Size(89, 12);
+			this.label4.Size = new System.Drawing.Size(112, 15);
 			this.label4.TabIndex = 2;
 			this.label4.Text = "商品竞拍时间：";
 			// 
@@ -214,35 +232,38 @@
 			this.cbBoxProjType.Items.AddRange(new object[] {
             "test",
             "auction"});
-			this.cbBoxProjType.Location = new System.Drawing.Point(121, 12);
+			this.cbBoxProjType.Location = new System.Drawing.Point(161, 15);
+			this.cbBoxProjType.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
 			this.cbBoxProjType.Name = "cbBoxProjType";
-			this.cbBoxProjType.Size = new System.Drawing.Size(121, 20);
+			this.cbBoxProjType.Size = new System.Drawing.Size(160, 23);
 			this.cbBoxProjType.TabIndex = 2;
 			this.cbBoxProjType.SelectedIndexChanged += new System.EventHandler(this.cbBoxProjType_SelectedIndexChanged);
 			// 
 			// label3
 			// 
 			this.label3.AutoSize = true;
-			this.label3.Location = new System.Drawing.Point(12, 15);
+			this.label3.Location = new System.Drawing.Point(16, 19);
+			this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
 			this.label3.Name = "label3";
-			this.label3.Size = new System.Drawing.Size(101, 12);
+			this.label3.Size = new System.Drawing.Size(127, 15);
 			this.label3.TabIndex = 3;
 			this.label3.Text = "请选择项目类型：";
 			// 
 			// Form1
 			// 
-			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
+			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-			this.ClientSize = new System.Drawing.Size(458, 311);
+			this.ClientSize = new System.Drawing.Size(611, 389);
 			this.Controls.Add(this.label3);
 			this.Controls.Add(this.cbBoxProjType);
 			this.Controls.Add(this.groupBox2);
 			this.Controls.Add(this.groupBox1);
+			this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
 			this.MaximizeBox = false;
 			this.Name = "Form1";
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-			this.Text = "quge竞拍项目数据分析（v6.0）";
+			this.Text = "quge竞拍项目数据分析（v7.0）";
 			this.Load += new System.EventHandler(this.Form1_Load);
 			this.groupBox1.ResumeLayout(false);
 			this.groupBox1.PerformLayout();
