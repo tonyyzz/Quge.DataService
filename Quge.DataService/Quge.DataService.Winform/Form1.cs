@@ -1,4 +1,5 @@
-﻿using NPOI.HSSF.UserModel;
+﻿using NPOI.XSSF.UserModel;
+using NPOI.XSSF.UserModel;
 using Quge.DataService.Aliyun.Log;
 using Quge.DataService.Model;
 using Quge.DataService.Model.Export;
@@ -46,12 +47,17 @@ namespace Quge.DataService.Winform
 			projName = (string)cbBoxProjType.SelectedItem;
 		}
 
+		
 
 		private void btnExpoertMore_Click(object sender, EventArgs e)
 		{
 
+			
+
+
+
 			DateTime timeLeft = dtpRegisterLeft.Value.Date;
-			DateTime timeRight = dtpRegisterRight.Value;
+			DateTime timeRight = dtpRegisterRight.Value.Date.AddDays(1).AddSeconds(-1);
 			if ((timeRight - timeLeft).TotalSeconds < 0)
 			{
 				MessageBox.Show("请选择正确的时间段！");
@@ -61,8 +67,8 @@ namespace Quge.DataService.Winform
 
 			string path = "";
 			saveFileDialogMore.InitialDirectory = @"D:\";
-			saveFileDialogMore.FileName = $"{projName}_所有用户的详细信息_{DateTime.Now.Ticks}";
-			saveFileDialogMore.DefaultExt = "xls";
+			saveFileDialogMore.FileName = $"{projName}_数据集1_所有用户的详细信息_{DateTime.Now.Ticks}";
+			saveFileDialogMore.DefaultExt = "xlsx";
 			if (saveFileDialogMore.ShowDialog() == DialogResult.OK)
 			{
 				path = saveFileDialogMore.FileName;
@@ -90,9 +96,13 @@ namespace Quge.DataService.Winform
 				List<Dictionary<string, string>> payDictList = new List<Dictionary<string, string>>();
 				try
 				{
-					GetLog(ref loginDictList, timeLeft, DateTime.Now, projName, DataLogTypeEnum.Login, 1);
-					GetLog(ref registerDictList, timeLeft, timeRight, projName, DataLogTypeEnum.Register, 1);
-					GetLog(ref payDictList, timeLeft, DateTime.Now, projName, DataLogTypeEnum.Pay, 1);
+					//GetLog(ref loginDictList, timeLeft, DateTime.Now, projName, DataLogTypeEnum.Login, 1);
+					//GetLog(ref registerDictList, timeLeft, timeRight, projName, DataLogTypeEnum.Register, 1);
+					//GetLog(ref payDictList, timeLeft, DateTime.Now, projName, DataLogTypeEnum.Pay, 1);
+					var idSelectStr = "";
+					loginDictList = GetLog(idSelectStr,timeLeft, DateTime.Now, projName, DataLogTypeEnum.Login);
+					registerDictList = GetLog(idSelectStr, timeLeft, timeRight, projName, DataLogTypeEnum.Register);
+					payDictList = GetLog(idSelectStr, timeLeft, DateTime.Now, projName, DataLogTypeEnum.Pay);
 				}
 				catch (Exception)
 				{
@@ -199,8 +209,8 @@ namespace Quge.DataService.Winform
 				dataList = dataList.Where(m => m.TotalFeeYuan > 0).ToList();
 
 
-				HSSFWorkbook hssfworkbook = new HSSFWorkbook();
-				HSSFSheet sheet = hssfworkbook.CreateSheet("RLData") as HSSFSheet;
+				XSSFWorkbook hssfworkbook = new XSSFWorkbook();
+				XSSFSheet sheet = hssfworkbook.CreateSheet("RLData") as XSSFSheet;
 
 				CreateRLDataTableHeader(hssfworkbook, sheet);
 				RLDataHandle(hssfworkbook, sheet, dataList);
@@ -224,9 +234,18 @@ namespace Quge.DataService.Winform
 
 		private void btnExpoertLess_Click(object sender, EventArgs e)
 		{
+			var ids = tbxUserIds.Text.Split(new char[] { '|' }, StringSplitOptions.RemoveEmptyEntries).ToList();
+			if (!ids.Any())
+			{
+				MessageBox.Show("请填写Id");
+				return;
+			}
+
+			var idSelectStr = $"({string.Join(" or ", ids)})";
+
 			DateTime timeLeft = dtpAuctionLeft.Value.Date;
 			//timeLeft = dtpAuctionLeft.Value.AddMinutes(-13);
-			DateTime timeRight = dtpAuctionRight.Value;
+			DateTime timeRight = dtpAuctionRight.Value.Date.AddDays(1).AddSeconds(-1);
 			if ((timeRight - timeLeft).TotalSeconds < 0)
 			{
 				MessageBox.Show("请选择正确的时间段！");
@@ -236,8 +255,8 @@ namespace Quge.DataService.Winform
 
 			string path = "";
 			saveFileDialogLess.InitialDirectory = @"D:\";
-			saveFileDialogLess.FileName = $"{projName}_所有用户的竞拍信息_{DateTime.Now.Ticks}";
-			saveFileDialogLess.DefaultExt = "xls";
+			saveFileDialogLess.FileName = $"{projName}_数据集2_所有用户的竞拍信息_{DateTime.Now.Ticks}";
+			saveFileDialogLess.DefaultExt = "xlsx";
 			if (saveFileDialogLess.ShowDialog() == DialogResult.OK)
 			{
 				path = saveFileDialogLess.FileName;
@@ -263,8 +282,11 @@ namespace Quge.DataService.Winform
 
 				//try
 				//{
-				GetLog(ref auctionDictList, timeLeft, timeRight, projName, DataLogTypeEnum.Auction, 1);
-				GetLog(ref auctionPrizeDictList, timeLeft, DateTime.Now, projName, DataLogTypeEnum.AuctionPrize, 1);
+				//GetLog(ref auctionDictList, timeLeft, timeRight, projName, DataLogTypeEnum.Auction, 1);
+				//GetLog(ref auctionPrizeDictList, timeLeft, DateTime.Now, projName, DataLogTypeEnum.AuctionPrize, 1);
+
+				auctionDictList = GetLog(idSelectStr,timeLeft, timeRight, projName, DataLogTypeEnum.Auction);
+				auctionPrizeDictList = GetLog(idSelectStr,timeLeft, DateTime.Now, projName, DataLogTypeEnum.AuctionPrize);
 				//}
 				//catch (Exception ex)
 				//{
@@ -338,8 +360,8 @@ namespace Quge.DataService.Winform
 					//}
 				}
 
-				HSSFWorkbook hssfworkbook = new HSSFWorkbook();
-				HSSFSheet sheet = hssfworkbook.CreateSheet("AuctionData") as HSSFSheet;
+				XSSFWorkbook hssfworkbook = new XSSFWorkbook();
+				XSSFSheet sheet = hssfworkbook.CreateSheet("AuctionData") as XSSFSheet;
 
 				CreateAuctDataTableHeader(hssfworkbook, sheet);
 				AuctDataHandle(hssfworkbook, sheet, dataList);
@@ -370,35 +392,78 @@ namespace Quge.DataService.Winform
 		/// <param name="projName"></param>
 		/// <param name="logTypeEnum"></param>
 		/// <param name="pageIndex">分页的页码，从1开始</param>
-		private void GetLog(ref List<Dictionary<string, string>> list,
-			DateTime timeLeft, DateTime timeRight,
-			string projName, DataLogTypeEnum logTypeEnum, int pageIndex)
-		{
-			//Thread.Sleep(1);
-			int singleMexCount = 100;
-			bool isException = false;
-			var result = AliyunLogService.ReadLog(out isException, timeLeft, timeRight,
-				$"projName:{projName} and logType:{(int)logTypeEnum}", offset: (pageIndex - 1) * singleMexCount);
+		//private void GetLog(ref List<Dictionary<string, string>> list,
+		//	DateTime timeLeft, DateTime timeRight,
+		//	string projName, DataLogTypeEnum logTypeEnum, int pageIndex)
+		//{
+		//	//Thread.Sleep(1);
+		//	int singleMexCount = 100;
+		//	bool isException = false;
+		//	var result = AliyunLogService.ReadLog(out isException, timeLeft, timeRight,
+		//		$"projName:{projName} and logType:{(int)logTypeEnum}", offset: (pageIndex - 1) * singleMexCount);
 
-			if (result.Any())
+		//	if (pageIndex < Math.Pow(10, 8))
+		//	{
+
+
+		//		if (result.Any())
+		//		{
+		//			list.AddRange(result);
+		//			GetLog(ref list, timeLeft, timeRight, projName, logTypeEnum, pageIndex + 1);
+		//		}
+		//		else
+		//		{
+		//			if (isException)
+		//			{
+		//				GetLog(ref list, timeLeft, timeRight, projName, logTypeEnum, pageIndex + 1);
+		//			}
+		//		}
+		//	}
+		//}
+
+		//非递归
+		private List<Dictionary<string, string>> GetLog(string idSelectStr,
+			DateTime timeLeft, DateTime timeRight,
+			string projName, DataLogTypeEnum logTypeEnum)
+		{
+			List<Dictionary<string, string>> list = new List<Dictionary<string, string>>();
+			int singleMexCount = 100;
+			for (int i = 1; i < Int32.MaxValue - 1; i++)
 			{
-				list.AddRange(result);
-				GetLog(ref list, timeLeft, timeRight, projName, logTypeEnum, pageIndex + 1);
-			}
-			else
-			{
-				if (isException)
+				bool isException = false;
+				var whereStr = "";
+				if (string.IsNullOrWhiteSpace(idSelectStr))
 				{
-					GetLog(ref list, timeLeft, timeRight, projName, logTypeEnum, pageIndex + 1);
+					whereStr = $"projName:{projName} and logType:{(int)logTypeEnum}";
 				}
+				else
+				{
+					whereStr = $"projName:{projName} and logType:{(int)logTypeEnum} and {idSelectStr}";
+				}
+				var result = AliyunLogService.ReadLog(out isException, timeLeft, timeRight,
+					whereStr, offset: (i - 1) * singleMexCount);
+
+				if (result.Any())
+				{
+					list.AddRange(result);
+				}
+				else
+				{
+					if (!isException)
+					{
+						break;
+					}
+				}
+
 			}
+			return list;
 		}
 
 
-		private void CreateAuctDataTableHeader(HSSFWorkbook hssfworkbook, HSSFSheet sheet)
+		private void CreateAuctDataTableHeader(XSSFWorkbook hssfworkbook, XSSFSheet sheet)
 		{
-			HSSFCellStyle celStyle = getCellStyle(hssfworkbook);
-			HSSFRow row = sheet.CreateRow(0) as HSSFRow;
+			XSSFCellStyle celStyle = getCellStyle(hssfworkbook);
+			XSSFRow row = sheet.CreateRow(0) as XSSFRow;
 
 			sheet.SetColumnWidth(0, 20 * 256);
 			var cell = row.CreateCell(0);
@@ -446,48 +511,48 @@ namespace Quge.DataService.Winform
 			//cell.CellStyle = celStyle;
 		}
 
-		private void AuctDataHandle(HSSFWorkbook hssfworkbook, HSSFSheet sheet, List<DataAuctModel> list)
+		private void AuctDataHandle(XSSFWorkbook hssfworkbook, XSSFSheet sheet, List<DataAuctModel> list)
 		{
 			int dataNum = list.Count(); //数据量
-			HSSFRow row;
-			HSSFCell cell;
-			HSSFCellStyle cellStyle = getCellStyle(hssfworkbook);
-			HSSFCellStyle timeCellStyle = getTimeCellStyle(hssfworkbook);
-			HSSFCellStyle totalFeeCellStyle = getTotalFeeCellStyle(hssfworkbook);
+			XSSFRow row;
+			XSSFCell cell;
+			XSSFCellStyle cellStyle = getCellStyle(hssfworkbook);
+			XSSFCellStyle timeCellStyle = getTimeCellStyle(hssfworkbook);
+			XSSFCellStyle totalFeeCellStyle = getTotalFeeCellStyle(hssfworkbook);
 			for (int i = 0; i < dataNum; i++)
 			{
 				var item = list[i];
-				row = sheet.CreateRow(i + 1) as HSSFRow;
+				row = sheet.CreateRow(i + 1) as XSSFRow;
 
-				cell = row.CreateCell(0) as HSSFCell;
+				cell = row.CreateCell(0) as XSSFCell;
 				cell.CellStyle = cellStyle;
 				cell.SetCellValue(item.pid);
 
-				cell = row.CreateCell(1) as HSSFCell;
+				cell = row.CreateCell(1) as XSSFCell;
 				cell.CellStyle = cellStyle;
 				cell.SetCellValue(item.ActionName);
 
-				cell = row.CreateCell(2) as HSSFCell;
+				cell = row.CreateCell(2) as XSSFCell;
 				cell.CellStyle = cellStyle;
 				cell.SetCellValue(item.TermIndex);
 
-				cell = row.CreateCell(3) as HSSFCell;
+				cell = row.CreateCell(3) as XSSFCell;
 				cell.CellStyle = timeCellStyle;
 				cell.SetCellValue(item.FirstActionTime);
 
-				cell = row.CreateCell(4) as HSSFCell;
+				cell = row.CreateCell(4) as XSSFCell;
 				cell.CellStyle = cellStyle;
 				cell.SetCellValue("");
 
-				cell = row.CreateCell(5) as HSSFCell;
+				cell = row.CreateCell(5) as XSSFCell;
 				cell.CellStyle = cellStyle;
 				cell.SetCellValue(item.AuctionCountOfThisTerm);
 
-				cell = row.CreateCell(6) as HSSFCell;
+				cell = row.CreateCell(6) as XSSFCell;
 				cell.CellStyle = cellStyle;
 				cell.SetCellValue(item.IsFinalWinPrize ? "√" : "×");
 
-				//cell = row.CreateCell(6) as HSSFCell;
+				//cell = row.CreateCell(6) as XSSFCell;
 				//cell.CellStyle = totalFeeCellStyle;
 				//cell.SetCellValue(item.TotalFeeYuan);
 			}
@@ -496,10 +561,10 @@ namespace Quge.DataService.Winform
 		/// 创建RLData的表头数据
 		/// </summary>
 		/// <param name="sheet"></param>
-		private void CreateRLDataTableHeader(HSSFWorkbook hssfworkbook, HSSFSheet sheet)
+		private void CreateRLDataTableHeader(XSSFWorkbook hssfworkbook, XSSFSheet sheet)
 		{
-			HSSFCellStyle celStyle = getCellStyle(hssfworkbook);
-			HSSFRow row = sheet.CreateRow(0) as HSSFRow;
+			XSSFCellStyle celStyle = getCellStyle(hssfworkbook);
+			XSSFRow row = sheet.CreateRow(0) as XSSFRow;
 
 			sheet.SetColumnWidth(0, 20 * 256);
 			var cell = row.CreateCell(0);
@@ -543,44 +608,44 @@ namespace Quge.DataService.Winform
 		/// <param name="hssfworkbook"></param>
 		/// <param name="sheet"></param>
 		/// <param name="list"></param>
-		private void RLDataHandle(HSSFWorkbook hssfworkbook, HSSFSheet sheet, List<DataRLModel> list)
+		private void RLDataHandle(XSSFWorkbook hssfworkbook, XSSFSheet sheet, List<DataRLModel> list)
 		{
 			int dataNum = list.Count(); //数据量
-			HSSFRow row;
-			HSSFCell cell;
-			HSSFCellStyle cellStyle = getCellStyle(hssfworkbook);
-			HSSFCellStyle timeCellStyle = getTimeCellStyle(hssfworkbook);
-			HSSFCellStyle totalFeeCellStyle = getTotalFeeCellStyle(hssfworkbook);
+			XSSFRow row;
+			XSSFCell cell;
+			XSSFCellStyle cellStyle = getCellStyle(hssfworkbook);
+			XSSFCellStyle timeCellStyle = getTimeCellStyle(hssfworkbook);
+			XSSFCellStyle totalFeeCellStyle = getTotalFeeCellStyle(hssfworkbook);
 			for (int i = 0; i < dataNum; i++)
 			{
 				var item = list[i];
-				row = sheet.CreateRow(i + 1) as HSSFRow;
+				row = sheet.CreateRow(i + 1) as XSSFRow;
 
-				cell = row.CreateCell(0) as HSSFCell;
+				cell = row.CreateCell(0) as XSSFCell;
 				cell.CellStyle = cellStyle;
 				cell.SetCellValue(item.pid);
 
-				cell = row.CreateCell(1) as HSSFCell;
+				cell = row.CreateCell(1) as XSSFCell;
 				cell.CellStyle = cellStyle;
 				cell.SetCellValue(item.channel);
 
-				cell = row.CreateCell(2) as HSSFCell;
+				cell = row.CreateCell(2) as XSSFCell;
 				cell.CellStyle = timeCellStyle;
 				cell.SetCellValue(item.RegisterTime);
 
-				cell = row.CreateCell(3) as HSSFCell;
+				cell = row.CreateCell(3) as XSSFCell;
 				cell.CellStyle = totalFeeCellStyle;
 				cell.SetCellValue(item.TotalFeeYuan);
 
-				cell = row.CreateCell(4) as HSSFCell;
+				cell = row.CreateCell(4) as XSSFCell;
 				cell.CellStyle = timeCellStyle;
 				cell.SetCellValue(item.FirstPayTime);
 
-				cell = row.CreateCell(5) as HSSFCell;
+				cell = row.CreateCell(5) as XSSFCell;
 				cell.CellStyle = cellStyle;
 				cell.SetCellValue(item.PayCount);
 
-				cell = row.CreateCell(6) as HSSFCell;
+				cell = row.CreateCell(6) as XSSFCell;
 				cell.CellStyle = timeCellStyle;
 				cell.SetCellValue(item.LastLoginTime);
 			}
@@ -592,7 +657,7 @@ namespace Quge.DataService.Winform
 		/// </summary>
 		/// <param name="hssfworkbook"></param>
 		/// <param name="path"></param>
-		private void WriteXlsToFile(HSSFWorkbook hssfworkbook, string path)
+		private void WriteXlsToFile(XSSFWorkbook hssfworkbook, string path)
 		{
 			using (FileStream file = new FileStream(path, FileMode.Create))
 			{
@@ -605,9 +670,9 @@ namespace Quge.DataService.Winform
 		/// </summary>
 		/// <param name="hssfworkbook"></param>
 		/// <returns></returns>
-		private HSSFCellStyle getCellStyle(HSSFWorkbook hssfworkbook)
+		private XSSFCellStyle getCellStyle(XSSFWorkbook hssfworkbook)
 		{
-			HSSFCellStyle cellStyle = hssfworkbook.CreateCellStyle() as HSSFCellStyle;
+			XSSFCellStyle cellStyle = hssfworkbook.CreateCellStyle() as XSSFCellStyle;
 			cellStyle.BorderBottom = NPOI.SS.UserModel.BorderStyle.Thin;
 			cellStyle.BorderLeft = NPOI.SS.UserModel.BorderStyle.Thin;
 			cellStyle.BorderRight = NPOI.SS.UserModel.BorderStyle.Thin;
@@ -620,10 +685,10 @@ namespace Quge.DataService.Winform
 		/// </summary>
 		/// <param name="hssfworkbook"></param>
 		/// <returns></returns>
-		private HSSFCellStyle getTimeCellStyle(HSSFWorkbook hssfworkbook)
+		private XSSFCellStyle getTimeCellStyle(XSSFWorkbook hssfworkbook)
 		{
-			HSSFCellStyle cellStyle = getCellStyle(hssfworkbook);
-			HSSFDataFormat format = hssfworkbook.CreateDataFormat() as HSSFDataFormat;
+			XSSFCellStyle cellStyle = getCellStyle(hssfworkbook);
+			XSSFDataFormat format = hssfworkbook.CreateDataFormat() as XSSFDataFormat;
 			cellStyle.DataFormat = format.GetFormat("yyyy.MM.dd HH:mm:ss");
 			return cellStyle;
 		}
@@ -632,10 +697,11 @@ namespace Quge.DataService.Winform
 		/// </summary>
 		/// <param name="hssfworkbook"></param>
 		/// <returns></returns>
-		private HSSFCellStyle getTotalFeeCellStyle(HSSFWorkbook hssfworkbook)
+		private XSSFCellStyle getTotalFeeCellStyle(XSSFWorkbook hssfworkbook)
 		{
-			HSSFCellStyle cellStyle = getCellStyle(hssfworkbook);
-			cellStyle.DataFormat = HSSFDataFormat.GetBuiltinFormat("0.00");
+			XSSFCellStyle cellStyle = getCellStyle(hssfworkbook);
+			//cellStyle.DataFormat = new XSSFDataFormat(new NPOI.XSSF.Model.StylesTable()).GetBuiltinFormat("0.00");
+			cellStyle.DataFormat = new XSSFDataFormat(new NPOI.XSSF.Model.StylesTable()).GetFormat("0.00");
 			return cellStyle;
 		}
 

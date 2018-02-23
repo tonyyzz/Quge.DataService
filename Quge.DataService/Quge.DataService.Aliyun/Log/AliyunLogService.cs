@@ -49,18 +49,18 @@ namespace Quge.DataService.Aliyun.Log
 
 			List<Dictionary<string, string>> list = new List<Dictionary<string, string>>();
 			LogClient client = null;
-			try
-			{
-				client = new LogClient(AliyunConfig.endpoint, AliyunConfig.accessKeyId, AliyunConfig.accessKeySecret);
-			}
-			catch (Exception)
-			{
-				isException = true;
-			}
-			if (isException)
-			{
-				return list;
-			}
+			//try
+			//{
+			client = new LogClient(AliyunConfig.endpoint, AliyunConfig.accessKeyId, AliyunConfig.accessKeySecret);
+			//}
+			//catch (Exception)
+			//{
+			//	isException = true;
+			//}
+			//if (isException)
+			//{
+			//	return list;
+			//}
 			//查询日志数据
 			GetLogsResponse res3 = null;
 			//try

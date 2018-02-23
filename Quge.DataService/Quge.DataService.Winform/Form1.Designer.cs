@@ -48,6 +48,8 @@
 			this.saveFileDialogLess = new System.Windows.Forms.SaveFileDialog();
 			this.cbBoxProjType = new System.Windows.Forms.ComboBox();
 			this.label3 = new System.Windows.Forms.Label();
+			this.label8 = new System.Windows.Forms.Label();
+			this.tbxUserIds = new System.Windows.Forms.TextBox();
 			this.groupBox1.SuspendLayout();
 			this.groupBox2.SuspendLayout();
 			this.SuspendLayout();
@@ -61,10 +63,10 @@
 			this.groupBox1.Controls.Add(this.dtpRegisterRight);
 			this.groupBox1.Controls.Add(this.dtpRegisterLeft);
 			this.groupBox1.Controls.Add(this.label1);
-			this.groupBox1.Location = new System.Drawing.Point(19, 62);
-			this.groupBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+			this.groupBox1.Location = new System.Drawing.Point(19, 61);
+			this.groupBox1.Margin = new System.Windows.Forms.Padding(4);
 			this.groupBox1.Name = "groupBox1";
-			this.groupBox1.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+			this.groupBox1.Padding = new System.Windows.Forms.Padding(4);
 			this.groupBox1.Size = new System.Drawing.Size(565, 129);
 			this.groupBox1.TabIndex = 0;
 			this.groupBox1.TabStop = false;
@@ -94,7 +96,7 @@
 			// btnExpoertMore
 			// 
 			this.btnExpoertMore.Location = new System.Drawing.Point(448, 92);
-			this.btnExpoertMore.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+			this.btnExpoertMore.Margin = new System.Windows.Forms.Padding(4);
 			this.btnExpoertMore.Name = "btnExpoertMore";
 			this.btnExpoertMore.Size = new System.Drawing.Size(100, 29);
 			this.btnExpoertMore.TabIndex = 4;
@@ -115,7 +117,7 @@
 			// dtpRegisterRight
 			// 
 			this.dtpRegisterRight.Location = new System.Drawing.Point(364, 34);
-			this.dtpRegisterRight.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+			this.dtpRegisterRight.Margin = new System.Windows.Forms.Padding(4);
 			this.dtpRegisterRight.Name = "dtpRegisterRight";
 			this.dtpRegisterRight.Size = new System.Drawing.Size(183, 25);
 			this.dtpRegisterRight.TabIndex = 2;
@@ -123,7 +125,7 @@
 			// dtpRegisterLeft
 			// 
 			this.dtpRegisterLeft.Location = new System.Drawing.Point(148, 35);
-			this.dtpRegisterLeft.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+			this.dtpRegisterLeft.Margin = new System.Windows.Forms.Padding(4);
 			this.dtpRegisterLeft.Name = "dtpRegisterLeft";
 			this.dtpRegisterLeft.Size = new System.Drawing.Size(183, 25);
 			this.dtpRegisterLeft.TabIndex = 1;
@@ -141,18 +143,20 @@
 			// 
 			// groupBox2
 			// 
+			this.groupBox2.Controls.Add(this.tbxUserIds);
 			this.groupBox2.Controls.Add(this.lblStateLess);
+			this.groupBox2.Controls.Add(this.label8);
 			this.groupBox2.Controls.Add(this.label7);
 			this.groupBox2.Controls.Add(this.btnExpoertLess);
 			this.groupBox2.Controls.Add(this.label5);
 			this.groupBox2.Controls.Add(this.dtpAuctionRight);
 			this.groupBox2.Controls.Add(this.dtpAuctionLeft);
 			this.groupBox2.Controls.Add(this.label4);
-			this.groupBox2.Location = new System.Drawing.Point(19, 219);
-			this.groupBox2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+			this.groupBox2.Location = new System.Drawing.Point(19, 212);
+			this.groupBox2.Margin = new System.Windows.Forms.Padding(4);
 			this.groupBox2.Name = "groupBox2";
-			this.groupBox2.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
-			this.groupBox2.Size = new System.Drawing.Size(565, 130);
+			this.groupBox2.Padding = new System.Windows.Forms.Padding(4);
+			this.groupBox2.Size = new System.Drawing.Size(565, 288);
 			this.groupBox2.TabIndex = 1;
 			this.groupBox2.TabStop = false;
 			this.groupBox2.Text = "数据集2（所有用户的竞拍信息）";
@@ -161,7 +165,7 @@
 			// 
 			this.lblStateLess.AutoSize = true;
 			this.lblStateLess.ForeColor = System.Drawing.Color.Green;
-			this.lblStateLess.Location = new System.Drawing.Point(148, 110);
+			this.lblStateLess.Location = new System.Drawing.Point(148, 251);
 			this.lblStateLess.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
 			this.lblStateLess.Name = "lblStateLess";
 			this.lblStateLess.Size = new System.Drawing.Size(55, 15);
@@ -171,7 +175,7 @@
 			// label7
 			// 
 			this.label7.AutoSize = true;
-			this.label7.Location = new System.Drawing.Point(40, 110);
+			this.label7.Location = new System.Drawing.Point(40, 251);
 			this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
 			this.label7.Name = "label7";
 			this.label7.Size = new System.Drawing.Size(82, 15);
@@ -180,8 +184,8 @@
 			// 
 			// btnExpoertLess
 			// 
-			this.btnExpoertLess.Location = new System.Drawing.Point(451, 96);
-			this.btnExpoertLess.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+			this.btnExpoertLess.Location = new System.Drawing.Point(451, 237);
+			this.btnExpoertLess.Margin = new System.Windows.Forms.Padding(4);
 			this.btnExpoertLess.Name = "btnExpoertLess";
 			this.btnExpoertLess.Size = new System.Drawing.Size(100, 29);
 			this.btnExpoertLess.TabIndex = 5;
@@ -192,7 +196,7 @@
 			// label5
 			// 
 			this.label5.AutoSize = true;
-			this.label5.Location = new System.Drawing.Point(343, 44);
+			this.label5.Location = new System.Drawing.Point(343, 185);
 			this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
 			this.label5.Name = "label5";
 			this.label5.Size = new System.Drawing.Size(15, 15);
@@ -201,16 +205,16 @@
 			// 
 			// dtpAuctionRight
 			// 
-			this.dtpAuctionRight.Location = new System.Drawing.Point(367, 36);
-			this.dtpAuctionRight.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+			this.dtpAuctionRight.Location = new System.Drawing.Point(367, 177);
+			this.dtpAuctionRight.Margin = new System.Windows.Forms.Padding(4);
 			this.dtpAuctionRight.Name = "dtpAuctionRight";
 			this.dtpAuctionRight.Size = new System.Drawing.Size(183, 25);
 			this.dtpAuctionRight.TabIndex = 6;
 			// 
 			// dtpAuctionLeft
 			// 
-			this.dtpAuctionLeft.Location = new System.Drawing.Point(151, 36);
-			this.dtpAuctionLeft.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+			this.dtpAuctionLeft.Location = new System.Drawing.Point(151, 177);
+			this.dtpAuctionLeft.Margin = new System.Windows.Forms.Padding(4);
 			this.dtpAuctionLeft.Name = "dtpAuctionLeft";
 			this.dtpAuctionLeft.Size = new System.Drawing.Size(183, 25);
 			this.dtpAuctionLeft.TabIndex = 5;
@@ -218,7 +222,7 @@
 			// label4
 			// 
 			this.label4.AutoSize = true;
-			this.label4.Location = new System.Drawing.Point(8, 36);
+			this.label4.Location = new System.Drawing.Point(8, 177);
 			this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
 			this.label4.Name = "label4";
 			this.label4.Size = new System.Drawing.Size(112, 15);
@@ -233,7 +237,7 @@
             "test",
             "auction"});
 			this.cbBoxProjType.Location = new System.Drawing.Point(161, 15);
-			this.cbBoxProjType.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+			this.cbBoxProjType.Margin = new System.Windows.Forms.Padding(4);
 			this.cbBoxProjType.Name = "cbBoxProjType";
 			this.cbBoxProjType.Size = new System.Drawing.Size(160, 23);
 			this.cbBoxProjType.TabIndex = 2;
@@ -249,21 +253,38 @@
 			this.label3.TabIndex = 3;
 			this.label3.Text = "请选择项目类型：";
 			// 
+			// label8
+			// 
+			this.label8.AutoSize = true;
+			this.label8.Location = new System.Drawing.Point(8, 34);
+			this.label8.Name = "label8";
+			this.label8.Size = new System.Drawing.Size(256, 15);
+			this.label8.TabIndex = 4;
+			this.label8.Text = "要查询的用户Id集合（用“|”分割）";
+			// 
+			// tbxUserIds
+			// 
+			this.tbxUserIds.Location = new System.Drawing.Point(11, 62);
+			this.tbxUserIds.Multiline = true;
+			this.tbxUserIds.Name = "tbxUserIds";
+			this.tbxUserIds.Size = new System.Drawing.Size(540, 93);
+			this.tbxUserIds.TabIndex = 5;
+			// 
 			// Form1
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-			this.ClientSize = new System.Drawing.Size(611, 389);
+			this.ClientSize = new System.Drawing.Size(600, 521);
 			this.Controls.Add(this.label3);
 			this.Controls.Add(this.cbBoxProjType);
 			this.Controls.Add(this.groupBox2);
 			this.Controls.Add(this.groupBox1);
-			this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+			this.Margin = new System.Windows.Forms.Padding(4);
 			this.MaximizeBox = false;
 			this.Name = "Form1";
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-			this.Text = "quge竞拍项目数据分析（v7.0）";
+			this.Text = "quge竞拍项目数据分析（v8.0）";
 			this.Load += new System.EventHandler(this.Form1_Load);
 			this.groupBox1.ResumeLayout(false);
 			this.groupBox1.PerformLayout();
@@ -296,6 +317,8 @@
 		private System.Windows.Forms.SaveFileDialog saveFileDialogLess;
 		private System.Windows.Forms.ComboBox cbBoxProjType;
 		private System.Windows.Forms.Label label3;
+		private System.Windows.Forms.Label label8;
+		private System.Windows.Forms.TextBox tbxUserIds;
 	}
 }
 
